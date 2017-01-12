@@ -1,13 +1,13 @@
 # Battery Life Application
 
-AngularJS application styled with MaterializeCSS, based on CodeWars Kata. Designed by [planlodge](http://planlodge.com).
+AngularJS application styled with Bootstrap 3, based on CodeWars Kata. Designed by [planlodge](http://planlodge.com).
 
 [![Build Status](https://travis-ci.org/stevenbenner/jquery-powertip.svg?branch=master)](https://travis-ci.org/stevenbenner/jquery-powertip)
 ![License](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
 ## Description
 
-> It's the academic year's end, fateful moment of your school report. The averages must be calculated. All the students come to you and entreat you to calculate their average for them.
+> Return how many hours can charge the battery from 0% to 100%. It depends on your cell phone battery capacity and the power of the charger!
 
 ## License
 
