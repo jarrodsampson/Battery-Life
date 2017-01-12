@@ -9,6 +9,11 @@ AngularJS application styled with Bootstrap 3, based on CodeWars Kata. Designed 
 
 > Return how many hours can charge the battery from 0% to 100%. It depends on your cell phone battery capacity and the power of the charger!
 
+## Features
+- Choose Different types of phones and chargers and get charge time calculation
+- Add items to shopping cart
+- Responsive
+
 ## License
 
 Lunch Break Walk is licensed under the [MIT license](http://opensource.org/licenses/MIT).
