@@ -74,12 +74,6 @@
 
             <div ng-hide="phoneNo">
 
-                <div class="row col-sm-12 col-md-12">
-                    <p>{{phoneChoice.chosenPhone}}</p>
-                    <p><img ng-src="asets/img/{{phoneChoice.chosenImage}}" width="150" data-toggle="tooltip" data-placement="top" title="{{phoneChoice.chosenPhone}}" /></p>
-                    <p>{{phoneChoice.chosenCapacity}}mAh</p>
-                </div>
-
                 <div class="row col-sm-12 col-md-12 powerList">
                     <div ng-repeat="power in powerBanks">
                         <div class="row col-xs-6 col-sm-6 col-md-12 col-lg-12 block2">
@@ -187,7 +181,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">
+                    <button ng-disabled="cart.length==0" type="button" class="btn btn-success" data-dismiss="modal">
                         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Check Out
                     </button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
