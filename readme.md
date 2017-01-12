@@ -16,4 +16,4 @@ AngularJS application styled with Bootstrap 3, based on CodeWars Kata. Designed 
 
 ## License
 
-Lunch Break Walk is licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Battery Life is licensed under the [MIT license](http://opensource.org/licenses/MIT).
