@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Battery Charge App - Planlodge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" type="image/png" href="//pngimg.com/upload/battery_PNG11987.png">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body data-ng-app="BatteryApp" ng-controller="BatteryController" ng-cloak>
+
+
+<div class="container-fluid wrapper">
+
+    <div class="page-header row col-md-12">
+        <h1>Example page header <small>Subtext for header</small></h1>
+    </div>
+
+    <div class="row col-sm-12 col-md-12">
+
+        <div class="row col-sm-12 col-md-12 desktop-headings">
+            <div class="row col-sm-12 col-md-3">
+                <h3>Heading</h3>
+                <div class="holder"></div>
+            </div>
+            <div ng-hide="phoneNo" class="row col-sm-12 col-md-5 pad-left">
+                <h3>Heading</h3>
+                <div class="holder"></div>
+            </div>
+            <div ng-hide="noPower" class="row col-sm-12 col-md-4">
+                <h3>Heading</h3>
+                <div class="holder"></div>
+            </div>
+        </div>
+
+        <div class="row col-sm-12 col-md-12 mobile-only">
+            <h3>Heading</h3>
+        </div>
+
+        <div class="row col-sm-12 col-md-3">
+
+            <div class="row col-sm-12 col-md-12 phoneList">
+                <div ng-repeat="phone in phones">
+                    <div class="row col-xs-4 col-sm-4 col-md-12 col-lg-12 block">
+                        <a href="" ng-click="choosePhone(phone)">{{phone.title}}</a>
+                        <p ng-click="choosePhone(phone)"><img ng-src="asets/img/{{phone.image}}" width="150" data-toggle="tooltip" data-placement="top" title="{{phone.title}}" /></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-sm-12 col-md-12">
+                <a class="btn btn-danger" ng-click="clearData()">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    Clear
+                </a>
+            </div>
+        </div>
+
+
+
+        <div class="row col-sm-12 col-md-5 pad-left">
+
+            <div ng-hide="phoneNo" class="row col-sm-12 col-md-12 mobile-only">
+                <h3>Heading</h3>
+            </div>
+
+            <div ng-hide="phoneNo">
+
+                <div class="row col-sm-12 col-md-12">
+                    <p>{{phoneChoice.chosenPhone}}</p>
+                    <p><img ng-src="asets/img/{{phoneChoice.chosenImage}}" width="150" data-toggle="tooltip" data-placement="top" title="{{phoneChoice.chosenPhone}}" /></p>
+                    <p>{{phoneChoice.chosenCapacity}}mAh</p>
+                </div>
+
+                <div class="row col-sm-12 col-md-12 powerList">
+                    <div ng-repeat="power in powerBanks">
+                        <div class="row col-xs-6 col-sm-6 col-md-12 col-lg-12 block2">
+                            <p ng-click="choosePower(power)">{{power.title}}</p>
+                            <p><img ng-click="choosePower(power)" ng-src="asets/img/{{power.image}}" width="150" data-toggle="tooltip" data-placement="top" title="{{power.title}}" /></p>
+                            <p>{{power.description}}</p>
+                            <p>{{power.ma}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-sm-4 col-md-4">
+
+            <div ng-hide="noPower" class="row col-sm-12 col-md-12 mobile-only">
+                <h3>Heading</h3>
+            </div>
+
+            <div ng-hide="noPower" class="row col-sm-12 col-md-12">
+                <h4>Charge Time:</h4>
+                <p>{{chargeTime}}</p>
+                <p>{{phoneChoice.chosenPhone}}</p>
+                <p><a class="btn btn-danger" data-toggle="modal" data-target="#detailModal">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    Details
+                    </a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- detail Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{phoneChoice.chosenPhone}} and {{phoneCalcDisplay.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Charge Time:</h4>
+                    <p>{{chargeTime}}</p>
+                    <p><img ng-src="asets/img/{{phoneChoice.chosenImage}}" width="150" /></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="addCart(phoneChoice, phoneCalcDisplay)">Add To Cart</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- shopping cart -->
+    <div class="cart" data-toggle="tooltip" data-placement="left" title="View Your Cart">
+        <p data-toggle="modal" data-target="#cartModal" ng-click="showCart()"><span class="glyphicon glyphicon-shopping-cart cartIcon" aria-hidden="true"></span>
+            <span ng-hide="cartItems==0" class="badge">{{cartItems}}</span>
+        </p>
+    </div>
+
+    <!-- cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="">Shopping Cart</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="search" id="" placeholder="Search..">
+                    </div>
+                    <div ng-repeat="item in cartFilter = (cart | filter:search)">
+
+                        <div class="row col-sm-12 col-md-12 col-lg-12">
+
+                            <div class="row col-sm-10 col-md-10 col-lg-10">
+
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <p>{{item.phone}}</p>
+                                        <img class="media-object" ng-src="asets/img/{{item.image}}" width="100">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{item.charger}}</h4>
+                                        {{item.chargerDescription}}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row col-sm-2 col-md-2 col-lg-2">
+                                    <a class="btn btn-danger" ng-click="removeFromCart($index, item)">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </a>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div ng-if="cartFilter.length<1">
+                        <p>No Items to Display.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Check Out
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-sanitize.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
+</body>
+</html>
